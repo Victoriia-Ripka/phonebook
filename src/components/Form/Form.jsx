@@ -2,10 +2,10 @@ import React from 'react';
 import { Formik } from 'formik';
 import { nanoid } from 'nanoid';
 import * as Yup from 'yup';
-import { Label, DeleteBtn, InputField, InputForm, InputMessage } from './styles.styled';
+import { Label, DeleteBtn, InputField, InputForm, InputMessage } from '../styles.styled';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContacts } from '../redux/operations';
-import { selectContacts } from "redux/selectors";
+import { addContacts } from '../../redux/contacts/operations';
+import { selectContacts } from "redux/contacts/selectors";
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
