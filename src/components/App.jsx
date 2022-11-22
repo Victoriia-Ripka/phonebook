@@ -5,17 +5,50 @@ import ContactsPage from 'pages/Contacts';
 import HomePage from 'pages/Home';
 import LoginPage from 'pages/Login';
 import RegisterPage from 'pages/Register';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { refreshUser } from 'redux/auth/operations';
+import { useAuth } from 'hooks';
+import { RestrictedRoute } from './RestrictedRoute';
+import { PrivateRoute } from './PrivateRoute';
 // lazy!!!
 
 export default function App() {
+  const dispatch = useDispatch();
+  const { isRefreshing } = useAuth;
+
+  useEffect(() => {
+    dispatch(refreshUser);
+  }, [dispatch]);
+
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />}></Route>
-        <Route path="/register" element={<RegisterPage />}></Route>
-        <Route path="/login" element={<LoginPage />}></Route>
-        <Route path="/contacts" element={<ContactsPage />}></Route>
-      </Route>
-    </Routes>
+    !isRefreshing && (
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />}></Route>
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute
+                component={RegisterPage}
+                redirectedTo="/contacts"
+              />
+            }
+          ></Route>
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute component={LoginPage} redirectedTo="/contacts" />
+            }
+          ></Route>
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute component={ContactsPage} redirectedTo="/login" />
+            }
+          ></Route>
+        </Route>
+      </Routes>
+    )
   );
 }

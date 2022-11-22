@@ -21,11 +21,11 @@ export const ListOfContacts = () => {
   return (
     <ContactsList>
       {visibleContacts.map(item => {
-        const { name, phone, id } = item;
+        const { name, number, id } = item;
         return (
           <ContactsItem key={id}>
             <ContactsInfo>
-              {name}: {phone}
+              {name}: {number}
             </ContactsInfo>
             <DeleteBtn
               // value={id}
