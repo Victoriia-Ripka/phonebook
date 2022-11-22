@@ -16,12 +16,12 @@ export const ContactsEditor = () => {
   return (
     <>
       <Section title="Phonebook">
-        {/* <MyContactForm /> */}
+        <MyContactForm />
       </Section>
       <Section title="Contacts">
         <Filter />
         {isLoading && !error && <b>Request in progress...</b>}
-        {/* <ListOfContacts /> */}
+        <ListOfContacts />
       </Section>
     </>
   );
