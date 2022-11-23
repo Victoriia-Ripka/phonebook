@@ -1,15 +1,16 @@
 import { Outlet } from 'react-router-dom';
-import { AppBar } from './AppBar/AppBar';
+import { AppBarHeader } from './AppBar/AppBar';
 import { Suspense } from 'react';
+// import { Box } from '@mui/material';
 // import { Toaster } from 'react-hot-toast';
 
 export default function Layout() {
   return (
-    <div>
-      <AppBar />
+    <>
+      <AppBarHeader />
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>
-    </div>
+    </>
   );
 }
