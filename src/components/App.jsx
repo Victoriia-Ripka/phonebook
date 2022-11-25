@@ -1,4 +1,4 @@
-// import { lazy } from 'react';
+import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from 'components/Layout';
 import ContactsPage from 'pages/Contacts';
@@ -11,6 +11,7 @@ import { refreshUser } from 'redux/auth/operations';
 import { useAuth } from 'hooks';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
+import { Box } from '@mui/material';
 // lazy!!!
 
 export default function App() {
@@ -23,32 +24,42 @@ export default function App() {
 
   return (
     !isRefreshing && (
-      <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<HomePage />}></Route>
-          <Route
-            path="/register"
-            element={
-              <RestrictedRoute
-                component={RegisterPage}
-                redirectedTo="/contacts"
-              />
-            }
-          ></Route>
-          <Route
-            path="/login"
-            element={
-              <RestrictedRoute component={LoginPage} redirectedTo="/contacts" />
-            }
-          ></Route>
-          <Route
-            path="/contacts"
-            element={
-              <PrivateRoute component={ContactsPage} redirectedTo="/login" />
-            }
-          ></Route>
-        </Route>
-      </Routes>
+      <Box display="flex" flexDirection="column" alignItems="center" py={[3]}>
+        <Suspense fallback={<p>Loading...</p>}>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<HomePage />}></Route>
+              <Route
+                path="/register"
+                element={
+                  <RestrictedRoute
+                    component={RegisterPage}
+                    redirectedTo="/contacts"
+                  />
+                }
+              ></Route>
+              <Route
+                path="/login"
+                element={
+                  <RestrictedRoute
+                    component={LoginPage}
+                    redirectedTo="/contacts"
+                  />
+                }
+              ></Route>
+              <Route
+                path="/contacts"
+                element={
+                  <PrivateRoute
+                    component={ContactsPage}
+                    redirectedTo="/login"
+                  />
+                }
+              ></Route>
+            </Route>
+          </Routes>
+        </Suspense>
+      </Box>
     )
   );
 }

@@ -1,13 +1,9 @@
 import React from 'react';
-import {
-  ContactsList,
-  ContactsItem,
-  ContactsInfo,
-  DeleteBtn,
-} from '../styles.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContacts } from 'redux/contacts/operations';
 import { selectFilter, selectContacts } from 'redux/contacts/selectors';
+import { Button, List, ListItem } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const ListOfContacts = () => {
   const contacts = useSelector(selectContacts);
@@ -19,24 +15,20 @@ export const ListOfContacts = () => {
   );
 
   return (
-    <ContactsList>
+    <List>
       {visibleContacts.map(item => {
         const { name, number, id } = item;
         return (
-          <ContactsItem key={id}>
-            <ContactsInfo>
+          <ListItem key={id}>
+            <p>
               {name}: {number}
-            </ContactsInfo>
-            <DeleteBtn
-              // value={id}
-              onClick={ () => dispatch(deleteContacts(id))}
-              type="button"
-            >
+            </p>
+            <Button variant="outlined" startIcon={<DeleteIcon />} onClick={()=>dispatch(deleteContacts)}>
               Delete
-            </DeleteBtn>
-          </ContactsItem>
+            </Button>
+          </ListItem>
         );
       })}
-    </ContactsList>
+    </List>
   );
 };

@@ -1,37 +1,57 @@
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/operations';
+import { TextField, Button, Grid } from '@mui/material';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    const form = e.currentTarget;
+    console.log('hello');
     dispatch(
       register({
-        name: form.elements.name.value,
-        email: form.elements.email.value,
-        password: form.elements.password.value,
+        name: e.currentTarget.elements[0].value,
+        email: e.currentTarget.elements[2].value,
+        password: e.currentTarget.elements[4].value,
       })
     );
-    form.reset();
+    e.currentTarget.reset();
   };
 
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
-      <label>
-        Username
-        <input type="text" name="name" />
-      </label>
-      <label>
-        Email
-        <input type="email" name="email" />
-      </label>
-      <label>
-        Password
-        <input type="password" name="password" />
-      </label>
-      <button type="submit">Register</button>
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={1}
+      >
+        <Grid item xs={6} md={8}>
+          <TextField required id="outlined-required" label="Name" type="text" />
+        </Grid>
+        <Grid item xs={6} md={8}>
+          <TextField
+            required
+            id="outlined-required"
+            label="Email"
+            type="email"
+          />
+        </Grid>
+        <Grid item xs={6} md={8}>
+          <TextField
+            required
+            id="outlined-password-input"
+            label="Password"
+            type="password"
+          />
+        </Grid>
+        <Grid item xs={6} md={8}>
+          <Button variant="outlined" type="submit">
+            Register
+          </Button>
+        </Grid>
+      </Grid>
     </form>
   );
 };

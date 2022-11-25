@@ -1,32 +1,47 @@
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
+import { TextField, Button, Grid } from '@mui/material';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
-    const form = e.currentTarget;
     dispatch(
       logIn({
-        email: form.elements.email.value,
-        password: form.elements.password.value,
+        email: e.currentTarget.elements[0].value,
+        password: e.currentTarget.elements[2].value,
       })
     );
-    form.reset();
+    e.currentTarget.reset();
   };
 
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
-      <label>
-        Email
-        <input type="email" name="email" />
-      </label>
-      <label>
-        Password
-        <input type="password" name="password" />
-      </label>
-      <button type="submit">Log In</button>
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={1}
+      >
+        <Grid item xs={6} md={8}>
+          <TextField required id="outlined-required" label="Email" type="email" />
+        </Grid>
+        <Grid item xs={6} md={8}>
+          <TextField
+            required
+            id="outlined-password-input"
+            label="Password"
+            type="password"
+          />
+        </Grid>
+        <Grid item xs={6} md={8}>
+          <Button variant="outlined" type="submit">
+            Log in
+          </Button>
+        </Grid>
+      </Grid>
     </form>
   );
 };
