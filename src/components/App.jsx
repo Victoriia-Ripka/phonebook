@@ -1,10 +1,5 @@
-import { lazy, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Layout from 'components/Layout';
-import ContactsPage from 'pages/Contacts';
-import HomePage from 'pages/Home';
-import LoginPage from 'pages/Login';
-import RegisterPage from 'pages/Register';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { refreshUser } from 'redux/auth/operations';
@@ -12,7 +7,11 @@ import { useAuth } from 'hooks';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
 import { Box } from '@mui/material';
-// lazy!!!
+const Layout = React.lazy(() => import('components/Layout'));
+const ContactsPage = React.lazy(() => import('pages/Contacts'));
+const HomePage = React.lazy(() => import('pages/Home'));
+const LoginPage = React.lazy(() => import('pages/Login'));
+const RegisterPage = React.lazy(() => import('pages/Register'));
 
 export default function App() {
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ export default function App() {
 
   return (
     !isRefreshing && (
-      <Box display="flex" flexDirection="column" alignItems="center" py={[3]}>
+      <Box display="flex" flexDirection="column" alignItems="center">
         <Suspense fallback={<p>Loading...</p>}>
           <Routes>
             <Route path="/" element={<Layout />}>

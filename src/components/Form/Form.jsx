@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addContacts } from '../../redux/contacts/operations';
 import { TextField, Button, Grid } from '@mui/material';
 import { selectContacts } from 'redux/contacts/selectors';
+import toast from 'react-hot-toast';
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -31,8 +32,15 @@ export const MyContactForm = () => {
         item.name.toLocaleLowerCase() === newContact.name.toLocaleLowerCase()
     );
     if (isContactInList) {
-      alert(`${newContact.name} is already in contacts`);
+      toast.error(`${newContact.name} is already in contacts`, {
+        duration: 4000,
+        position: 'top-center',
+      });
     } else {
+      toast.success('Successfully created!', {
+        duration: 4000,
+        position: 'top-center',
+      });
       dispatch(addContacts(newContact));
       e.currentTarget.reset();
     }

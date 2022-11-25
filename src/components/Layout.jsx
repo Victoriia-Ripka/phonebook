@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { AppBarHeader } from './AppBar/AppBar';
 import { Suspense } from 'react';
 import { Box, Container } from '@mui/material';
-// import { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 export default function Layout() {
   return (
@@ -15,6 +15,7 @@ export default function Layout() {
           </Suspense>
         </Container>
       </Box>
+      <Toaster />
     </Box>
   );
 }
