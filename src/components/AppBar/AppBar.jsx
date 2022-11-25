@@ -2,7 +2,7 @@ import { Navigation } from '../Navigation/Navigation';
 import { UserMenu } from '../UserMenu/UserMenu';
 import { AuthNav } from '../AuthNav/AuthNav';
 import { useAuth } from 'hooks';
-import { AppBar, Toolbar, Box, Grid } from '@mui/material';
+import { AppBar, Toolbar, Grid } from '@mui/material';
 
 export const AppBarHeader = () => {
   const { isLoggedIn } = useAuth();

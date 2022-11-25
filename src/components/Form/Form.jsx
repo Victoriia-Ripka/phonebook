@@ -1,22 +1,22 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContacts } from '../../redux/contacts/operations';
 import { TextField, Button, Grid } from '@mui/material';
 import { selectContacts } from 'redux/contacts/selectors';
 import toast from 'react-hot-toast';
 
-const SignupSchema = Yup.object().shape({
-  name: Yup.string()
-    .min(2, 'Too Short!')
-    .max(50, 'Too Long!')
-    .required('Required'),
-  number: Yup.string()
-    .min(9, 'Too Short!')
-    .max(20, 'Too Long!')
-    .required('Required'),
-});
+// const SignupSchema = Yup.object().shape({
+//   name: Yup.string()
+//     .min(2, 'Too Short!')
+//     .max(50, 'Too Long!')
+//     .required('Required'),
+//   number: Yup.string()
+//     .min(9, 'Too Short!')
+//     .max(20, 'Too Long!')
+//     .required('Required'),
+// });
 
 export const MyContactForm = () => {
   const dispatch = useDispatch();
@@ -45,9 +45,9 @@ export const MyContactForm = () => {
       e.currentTarget.reset();
     }
   };
-
+//  validationSchema={SignupSchema}
   return (
-    <form onSubmit={handleSubmit} validationSchema={SignupSchema}>
+    <form onSubmit={handleSubmit}>
       <Grid
         container
         direction="row"
