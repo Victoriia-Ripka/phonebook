@@ -1,5 +1,6 @@
 import { useAuth } from 'hooks';
 import { Navigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 export const PrivateRoute = ({
   component: Component,
@@ -9,3 +10,8 @@ export const PrivateRoute = ({
   const shouldRedirected = !isLoggedIn && !isRefreshing;
   return shouldRedirected ? <Navigate to={redirectedTo} /> : <Component />;
 };
+
+PrivateRoute.propTypes = {
+  component: PropTypes.object.isRequired,
+  redirectedTo: PropTypes.string,
+}

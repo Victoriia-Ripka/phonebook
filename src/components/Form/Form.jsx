@@ -1,22 +1,10 @@
 import React from 'react';
 import { nanoid } from 'nanoid';
-// import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContacts } from '../../redux/contacts/operations';
 import { TextField, Button, Grid } from '@mui/material';
 import { selectContacts } from 'redux/contacts/selectors';
 import toast from 'react-hot-toast';
-
-// const SignupSchema = Yup.object().shape({
-//   name: Yup.string()
-//     .min(2, 'Too Short!')
-//     .max(50, 'Too Long!')
-//     .required('Required'),
-//   number: Yup.string()
-//     .min(9, 'Too Short!')
-//     .max(20, 'Too Long!')
-//     .required('Required'),
-// });
 
 export const MyContactForm = () => {
   const dispatch = useDispatch();
@@ -27,25 +15,42 @@ export const MyContactForm = () => {
     const name = e.currentTarget.elements[0].value;
     const number = e.currentTarget.elements[2].value;
     const newContact = { id: nanoid(), name, number };
-    const isContactInList = contacts.find(
-      item =>
-        item.name.toLocaleLowerCase() === newContact.name.toLocaleLowerCase()
-    );
-    if (isContactInList) {
-      toast.error(`${newContact.name} is already in contacts`, {
-        duration: 4000,
-        position: 'top-center',
-      });
+
+    if (name.length > 1 && name.length < 51) {
+      if (number.length > 8 && number.length < 21) {
+        const isContactInList = contacts.find(
+          item =>
+            item.name.toLocaleLowerCase() ===
+            newContact.name.toLocaleLowerCase()
+        );
+
+        if (isContactInList) {
+          toast.error(`${newContact.name} is already in contacts`, {
+            duration: 4000,
+            position: 'top-center',
+          });
+        } else {
+          toast.success('Successfully created!', {
+            duration: 4000,
+            position: 'top-center',
+          });
+          dispatch(addContacts(newContact));
+          e.currentTarget.reset();
+        }
+      } else {
+        toast.error(`Phone number must be digits and can contain spaces, dashes, parentheses and can start with +`, {
+          duration: 4000,
+          position: 'top-center',
+        });
+      }
     } else {
-      toast.success('Successfully created!', {
+      toast.error(`Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan`, {
         duration: 4000,
         position: 'top-center',
       });
-      dispatch(addContacts(newContact));
-      e.currentTarget.reset();
     }
   };
-//  validationSchema={SignupSchema}
+
   return (
     <form onSubmit={handleSubmit}>
       <Grid
@@ -61,21 +66,23 @@ export const MyContactForm = () => {
             id="outlined-required"
             label="Name"
             type="text"
-            // pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            // title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+            inputProps={{
+              pattern:
+                "^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$",
+            }}
           />
-          {/* <ErrorMessage name="name" /> */}
         </Grid>
         <Grid item xs>
           <TextField
             required
-            id="outlined-required"
+            id="outlined-number-required"
             label="Number"
             type="tel"
-            // pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            //   title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+            inputProps={{
+              pattern:
+                '+?d{1,4}?[-.s]?(?d{1,3}?)?[-.s]?d{1,4}[-.s]?d{1,4}[-.s]?d{1,9}',
+            }}
           />
-          {/* <ErrorMessage name="number" /> */}
         </Grid>
         <Grid item xs="auto">
           <Button variant="outlined" type="submit">

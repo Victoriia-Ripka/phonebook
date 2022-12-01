@@ -7,7 +7,6 @@ export const RegisterForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-    console.log('hello');
     dispatch(
       register({
         name: e.currentTarget.elements[0].value,
@@ -15,7 +14,6 @@ export const RegisterForm = () => {
         password: e.currentTarget.elements[4].value,
       })
     );
-    e.currentTarget.reset();
   };
 
   return (
@@ -28,12 +26,17 @@ export const RegisterForm = () => {
         spacing={1}
       >
         <Grid item xs={6} md={8}>
-          <TextField required id="outlined-required" label="Name" type="text" />
+          <TextField
+            required
+            id="outlined-name-required"
+            label="Name"
+            type="text"
+          />
         </Grid>
         <Grid item xs={6} md={8}>
           <TextField
             required
-            id="outlined-required"
+            id="outlined-email-required"
             label="Email"
             type="email"
           />

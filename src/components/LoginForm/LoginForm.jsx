@@ -13,7 +13,6 @@ export const LoginForm = () => {
         password: e.currentTarget.elements[2].value,
       })
     );
-    e.currentTarget.reset();
   };
 
   return (
