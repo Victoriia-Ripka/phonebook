@@ -4,6 +4,7 @@ import { deleteContacts } from 'redux/contacts/operations';
 import { selectFilter, selectContacts } from 'redux/contacts/selectors';
 import { Button, List, ListItem, Grid } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import toast from 'react-hot-toast'
 
 export const ListOfContacts = () => {
   const contacts = useSelector(selectContacts);
@@ -13,6 +14,14 @@ export const ListOfContacts = () => {
   const visibleContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filterContacts.toLowerCase())
   );
+
+  const deleteContact = (id) => {
+    dispatch(deleteContacts(id))
+    toast.success('Successfully deleted!', {
+      duration: 4000,
+      position: 'top-center',
+    });
+  }
 
   return (
     <List sx={{ width: '100%', maxWidth: 360 }}>
@@ -40,7 +49,7 @@ export const ListOfContacts = () => {
                 <Button
                   variant="outlined"
                   startIcon={<DeleteIcon />}
-                  onClick={() => dispatch(deleteContacts(id))}
+                  onClick={() => deleteContact(id)}
                 >
                   Delete
                 </Button>

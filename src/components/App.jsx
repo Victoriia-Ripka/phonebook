@@ -12,6 +12,7 @@ const ContactsPage = React.lazy(() => import('pages/Contacts'));
 const HomePage = React.lazy(() => import('pages/Home'));
 const LoginPage = React.lazy(() => import('pages/Login'));
 const RegisterPage = React.lazy(() => import('pages/Register'));
+const NotFound = React.lazy(() => import('pages/NotFound'));
 
 export default function App() {
   const dispatch = useDispatch();
@@ -55,6 +56,7 @@ export default function App() {
                   />
                 }
               ></Route>
+              <Route path="*" element={<NotFound />}></Route>
             </Route>
           </Routes>
         </Suspense>
