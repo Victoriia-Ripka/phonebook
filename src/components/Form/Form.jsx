@@ -3,21 +3,23 @@ import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContacts } from '../../redux/contacts/operations';
 import { TextField, Button, Grid } from '@mui/material';
+import { useAuth } from 'hooks';
 import { selectContacts } from 'redux/contacts/selectors';
 import toast from 'react-hot-toast';
 
 export const MyContactForm = () => {
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
+  const { user } = useAuth();
 
   const handleSubmit = e => {
     e.preventDefault();
     const name = e.currentTarget.elements[0].value;
-    const number = e.currentTarget.elements[2].value;
-    const newContact = { id: nanoid(), name, number };
+    const phone = e.currentTarget.elements[2].value;
+    const newContact = { id: nanoid(), name, phone: phone, email: user.email, favorite: false };
 
     if (name.length > 1 && name.length < 51) {
-      if (number.length > 8 && number.length < 21) {
+      if (phone.length > 8 && phone.length < 21) {
         const isContactInList = contacts.find(
           item =>
             item.name.toLocaleLowerCase() ===
@@ -80,7 +82,8 @@ export const MyContactForm = () => {
             type="tel"
             inputProps={{
               pattern:
-                '+?d{1,4}?[-.s]?(?d{1,3}?)?[-.s]?d{1,4}[-.s]?d{1,4}[-.s]?d{1,9}',
+                // eslint-disable-next-line no-useless-escape
+                '^\\d{10}$',
             }}
           />
         </Grid>

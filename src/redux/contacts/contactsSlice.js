@@ -24,7 +24,7 @@ export const contactsSlice = createSlice({
   // можна винести всі функції вище окремо, а тут передавати лінк
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.contacts = action.payload;
+        state.contacts = action.payload.data;
       })
       .addCase(addContacts.fulfilled, (state, action) => {
         state.contacts.push(action.payload);

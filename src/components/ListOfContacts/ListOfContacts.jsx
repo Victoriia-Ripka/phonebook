@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteContacts } from 'redux/contacts/operations';
+import { deleteContacts, updateFavorite } from 'redux/contacts/operations';
 import { selectFilter, selectContacts } from 'redux/contacts/selectors';
 import { Button, List, ListItem, Grid } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -23,12 +23,20 @@ export const ListOfContacts = () => {
     });
   }
 
+  const updateContactFavorite = id => {
+    dispatch(updateFavorite(id))
+    toast.success('Successfully upated!', {
+      duration: 4000,
+      position: 'top-center',
+    });
+  }
+
   return (
     <List sx={{ width: '100%', maxWidth: 360 }}>
       {visibleContacts.map(item => {
-        const { name, number, id } = item;
+        const { name, phone, _id, favorite } = item;
         return (
-          <ListItem key={id} sx={{ paddingLeft: 0, paddingRight: 0 }}>
+          <ListItem key={_id} sx={{ paddingLeft: 0, paddingRight: 0 }}>
             <Grid
               container
               direction="row"
@@ -41,7 +49,7 @@ export const ListOfContacts = () => {
                     <span>{name}:</span>
                   </Grid>
                   <Grid item xs="auto">
-                    <span>{number}</span>
+                    <span>{phone}</span>
                   </Grid>
                 </Grid>
               </Grid>
@@ -49,7 +57,14 @@ export const ListOfContacts = () => {
                 <Button
                   variant="outlined"
                   startIcon={<DeleteIcon />}
-                  onClick={() => deleteContact(id)}
+                  onClick={() => updateContactFavorite({contactsId: _id, favorite})}
+                >
+                  {favorite ? "delete from fav" : "add to fav"}
+                </Button>
+                <Button
+                  variant="outlined"
+                  startIcon={<DeleteIcon />}
+                  onClick={() => deleteContact(_id)}
                 >
                   Delete
                 </Button>
