@@ -7,11 +7,13 @@ export const RegisterForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    console.log(e.currentTarget.elements[0].value, e.currentTarget.elements[2].value, e.currentTarget.elements[4].value,)
     dispatch(
       register({
         name: e.currentTarget.elements[0].value,
         email: e.currentTarget.elements[2].value,
         password: e.currentTarget.elements[4].value,
+        subscription: 'pro',
       })
     );
   };
