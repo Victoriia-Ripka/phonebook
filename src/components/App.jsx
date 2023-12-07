@@ -16,7 +16,7 @@ const NotFound = React.lazy(() => import('pages/NotFound'));
 
 export default function App() {
   const dispatch = useDispatch();
-  const { isRefreshing } = useAuth;
+  const { isRefreshing } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());
