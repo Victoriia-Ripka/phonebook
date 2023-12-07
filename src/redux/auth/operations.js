@@ -23,8 +23,9 @@ export const register = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const responce = await axios.post('/users/register', credentials);
-      setAuthHeader(responce.data.token);
-      return responce.data;
+      console.log(responce.data.user.verificationToken)
+      setAuthHeader(responce.data.user.verificationToken);
+      return responce.data.user;
     } catch (error) {
       toast.error(`wrong data, try again`, {
         duration: 4000,
@@ -44,8 +45,8 @@ export const logIn = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const responce = await axios.post('/users/login', credentials);
-      setAuthHeader(responce.data.token);
-      return responce.data;
+      setAuthHeader(responce.data.verificationToken);
+      return responce.data.user;
     } catch (error) {
       toast.error(`wrong data, try again`, {
         duration: 4000,
@@ -79,7 +80,7 @@ export const logOut = createAsyncThunk(
 export const refreshUser = createAsyncThunk(
   'auth/refresh',
   async (_, thunkAPI) => {
-    const token = thunkAPI.getState().auth.token;
+    const token = thunkAPI.getState().auth.verificationToken;
     if (!token) {
       return thunkAPI.rejectWithValue('no valid token');
     }

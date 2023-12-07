@@ -3,7 +3,7 @@ import { register, logIn, logOut, refreshUser } from './operations';
 
 const initialState = {
   user: { name: null, email: null },
-  token: null,
+  verificationToken: null,
   isLoggedIn: false,
   isRefreshing: false,
 };
@@ -13,18 +13,18 @@ const authSlice = createSlice({
   initialState,
   extraReducers: {
     [register.fulfilled](state, action) {
-      state.user = action.payload.user;
-      state.token = action.payload.token;
+      state.user = action.payload;
+      state.verificationToken = action.payload.verificationToken;
       state.isLoggedIn = true;
     },
     [logIn.fulfilled](state, action) {
       state.user = action.payload.user;
-      state.token = action.payload.token;
+      state.verificationToken = action.payload.verificationToken;
       state.isLoggedIn = true;
     },
     [logOut.fulfilled](state) {
       state.user = { name: null, email: null };
-      state.token = null;
+      state.verificationToken = null;
       state.isLoggedIn = false;
     },
     [refreshUser.pending](state) {

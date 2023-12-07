@@ -19,7 +19,7 @@ export const UserMenu = () => {
         <Button
           variant="outlined"
           sx={{ color: 'white', borderColor: 'white', p: 1 }}
-          onClick={() => dispatch(logOut())}
+          onClick={() => dispatch(logOut(user))}
         >
           Logout
         </Button>
