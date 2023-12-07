@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkphonebook=self.webpackChunkphonebook||[]).push([[415],{5415:function(e,n,o){o.r(n),o.d(n,{default:function(){return t}});var u=o(184);function t(){return(0,u.jsx)("div",{children:"Welcome to CONTACTS APP"})}}}]);
+//# sourceMappingURL=415.8ced660e.chunk.js.map

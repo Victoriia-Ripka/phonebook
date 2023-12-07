@@ -1,1 +1,0 @@
-{"version":3,"file":"static/js/415.aed7be54.chunk.js","mappings":"uMAAe,SAASA,IACpB,OACI,oDAEP,C","sources":["pages/Home.jsx"],"sourcesContent":["export default function HomePage() {\n    return (\n        <div>Welcome to CONTACTS APP</div>\n    )\n}"],"names":["HomePage"],"sourceRoot":""}
