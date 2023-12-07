@@ -2,7 +2,7 @@ import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import toast from 'react-hot-toast';
 
-axios.defaults.baseURL = 'http://localhost:1647';
+axios.defaults.baseURL = 'http://localhost:1647/api';
 
 // Utility to add JWT
 const setAuthHeader = token => {
@@ -22,7 +22,7 @@ export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const responce = await axios.post('/api/users/register', credentials);
+      const responce = await axios.post('/users/register', credentials);
       setAuthHeader(responce.data.token);
       return responce.data;
     } catch (error) {
