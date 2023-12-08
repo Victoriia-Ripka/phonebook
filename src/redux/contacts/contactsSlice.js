@@ -1,5 +1,5 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { fetchContacts, addContacts, deleteContacts } from './operations';
+import { fetchContacts, addContacts, deleteContacts, fetchContact } from './operations';
 
 const actions = [fetchContacts, addContacts, deleteContacts]
 
@@ -16,6 +16,16 @@ export const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
     contacts: [],
+    contact: {
+      _id: '',
+      name: '',
+      email: '',
+      phone: '',
+      favorite: false,
+      owner: '',
+      createdAt: '',
+      updatedAt: '',
+    },
     filter: '',
     isLoading: false,
     error: null,
@@ -34,6 +44,9 @@ export const contactsSlice = createSlice({
           contact => contact.id === action.payload.id
         );
         state.contacts.splice(index, 1);
+      })
+      .addCase(fetchContact.fulfilled, (state, action) => {
+        state.contact = action.payload.data;
       })
       .addMatcher(
         isAnyOf(

@@ -9,13 +9,13 @@ import { ContactModal } from '../ContactModel/ContactModel'
 
 export const ListOfContacts = () => {
   const contacts = useSelector(selectContacts);
-  const filterContacts = useSelector(selectFilter);
+  const filterContacts = useSelector(selectFilter);;
   const dispatch = useDispatch();
   const [selectedContactId, setSelectedContactId] = useState(null);
 
-  const visibleContacts = contacts.filter(contact =>
+  const visibleContacts = Array.isArray(contacts) ? contacts.filter(contact =>
     contact.name.toLowerCase().includes(filterContacts.toLowerCase())
-  );
+  ) : [];
 
   const deleteContact = (id) => {
     dispatch(deleteContacts(id))
