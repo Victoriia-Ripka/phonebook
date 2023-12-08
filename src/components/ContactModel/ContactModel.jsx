@@ -17,6 +17,7 @@ export const ContactModal = ({ open, onClose, id }) => {
     };
 
     fetchContactDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
     
   return (
