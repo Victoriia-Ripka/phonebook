@@ -56,7 +56,6 @@ export const updateFavorite = createAsyncThunk(
   try {
       const {contactsId, favorite} = credentials
       const response = await axios.patch(`/contacts/${contactsId}/favorite`, {favorite});
-      console.log(response.data)
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
